@@ -1,6 +1,6 @@
-import {Request, Response, Router} from 'express';
+import { Request, Response, Router } from 'express';
 import pgPool from '../config/db';
-import {Album} from "../models/album.model";
+import { Album } from "../models/album.model";
 
 class AlbumController {
     public router: Router;
@@ -10,13 +10,13 @@ class AlbumController {
         this.init();
     }
 
-    private init(): void {
+    init(): void {
         this.router.get('/', this.all);
         this.router.get('/:albumId', this.one);
         this.router.post('/', this.save);
     }
 
-    private async all(req: Request, res: Response) {
+    async all(req: Request, res: Response) {
         const sql = `SELECT *
                      FROM albums`;
         const {rows} = await pgPool.query(sql);
@@ -24,7 +24,7 @@ class AlbumController {
         res.send(albums);
     }
 
-    private async one(req: Request, res: Response) {
+    async one(req: Request, res: Response) {
         const {albumId} = req.params;
         const sql = `SELECT id, title, cover, "releaseDate", "albumType"
                      FROM albums
@@ -34,7 +34,7 @@ class AlbumController {
         res.send(album);
     }
 
-    private async save(req: Request, res: Response) {
+    async save(req: Request, res: Response) {
         const {title, cover, artistId, albumType} = req.body;
         const sql = `INSERT INTO albums (title, cover, "artistId", "albumType")
                      VALUES ($1, $2, $3, $4) RETURNING *`;
