@@ -8,6 +8,7 @@ import PlaylistController from './controllers/PlaylistController'
 import AccountController from './controllers/AccountController'
 import LibraryController from './controllers/LibraryController'
 import SearchController from './controllers/SearchController'
+import { artistRoute } from './artist/artist.route'
 
 class App {
     public express: Application
@@ -16,6 +17,8 @@ class App {
         this.express = express()
         this.middleware()
         this.routes()
+
+        artistRoute(this.express);
     }
 
     private middleware(): void {
@@ -35,5 +38,7 @@ class App {
         this.express.use('/search', SearchController.router)
     }
 }
+
+
 
 export default new App().express
