@@ -3,7 +3,7 @@ import { Pool } from 'pg'
 import dotenv from 'dotenv'
 dotenv.config()
 
-const pgPool = new Pool({
+const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
@@ -12,4 +12,4 @@ const pgPool = new Pool({
     max: 5
 })
 
-export default pgPool
+export default pool

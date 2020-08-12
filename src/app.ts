@@ -1,13 +1,13 @@
 import express, { Application } from 'express'
 import cors from 'cors'
-import UserController from './controllers/UserController'
-import AlbumController from './controllers/AlbumController'
-import TrackController from './controllers/TrackController'
-import PlaylistController from './controllers/PlaylistController'
-import AccountController from './controllers/AccountController'
-import LibraryController from './controllers/LibraryController'
+
 import { artistRoute } from './app/artist/artist.route'
 import { searchRoute } from './app/search/search.route'
+import { libraryRoute } from './app/library/library.route'
+import { trackRoute } from './app/track/track.route'
+import { playlistRoute } from './app/playlist/playlist.route'
+import { userRoute } from './app/user/user.route'
+import { accountRoute } from './app/account/account.route'
 
 
 class App {
@@ -16,10 +16,17 @@ class App {
     constructor() {
         this.express = express()
         this.middleware()
-        this.routes()
+        this.initRoutes()
+    }
 
+    private initRoutes(): void {
         artistRoute(this.express)
         searchRoute(this.express)
+        libraryRoute(this.express)
+        trackRoute(this.express)
+        playlistRoute(this.express)
+        userRoute(this.express)
+        accountRoute(this.express)
     }
 
     private middleware(): void {
@@ -28,18 +35,7 @@ class App {
         this.express.use(express.json())
     }
 
-    private routes(): void {
-        this.express.use('/users', UserController.router)
-        // this.express.use('/artists', ArtistController.router)
-        this.express.use('/albums', AlbumController.router)
-        this.express.use('/tracks', TrackController.router)
-        this.express.use('/playlists', PlaylistController.router)
-        this.express.use('/me', AccountController.router)
-        this.express.use('/library', LibraryController.router)
-        // this.express.use('/search', SearchController.router)
-    }
 }
-
 
 
 export default new App().express
