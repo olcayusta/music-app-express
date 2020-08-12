@@ -1,5 +1,5 @@
-import pgPool from '../config/db'
-import { Artist } from '../models/artist.model'
+import pgPool from '../../config/db'
+import { Artist } from '../../models/artist.model'
 
 class ArtistService {
     async all(): Promise<Artist[]> {
